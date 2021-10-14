@@ -6,10 +6,7 @@ use App\Models\Role;
 use App\Exports\UserExport;
 use App\Imports\userImport;
 use Illuminate\Http\Request;
-use App\DataTables\UsersDataTable;
-use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Facades\Session;
 use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller

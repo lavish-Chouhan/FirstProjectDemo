@@ -165,7 +165,7 @@
 
             $('.modelClose').on('click', function(){
             $('#EditProductModal').hide();
-        });
+            });
         var id;
         $('body').on('click', '#getEditProductData', function(e) {
             e.preventDefault();
