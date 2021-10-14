@@ -30,9 +30,8 @@ class UserController extends Controller
                         ->addIndexColumn()
                         ->addColumn('action', function($data) {
 
-                           return '<a id="view" data-id="'.$data->id.'" class="edit btn btn-info btn-sm">View</a>
-
-                           <button type="button" class="btn btn-primary btn-sm" id="getEditProductData"data-toggle="modal" data-target="#EditProductModal" data-id="'.$data->id.'">Edit</button>';
+                           return '<a href="users/show/'.$data->id.'" id="show" >View</a>
+                           <button type="button" class="btn btn-primary btn-sm" id="getEditProductData" data-toggle="modal" data-target="#EditProductModal" data-id="'.$data->id.'">Edit</button>';
                         })
                         ->addColumn('role', function($data){
                             return $data->roles[0]['name'];
@@ -89,7 +88,6 @@ class UserController extends Controller
     public function show($id)
     {
         $data = User::find($id);
-
         return view('admin.show')
         ->with('User',$data);
     }

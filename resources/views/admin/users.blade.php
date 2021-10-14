@@ -108,6 +108,32 @@
         </div>
     </div>
 </div>
+<!-- View modal -->
+<div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="showModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="showModalLabel">Show User</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <span id="form_result"></span>
+        <div class="modal-body">
+            <lable>user</lable>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" name="submit"  class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+</div>
+{{-- end of view model --}}
+
+
+
     <table class="table mt-4" id="usersTable">
         <thead>
             <th> # </th>
@@ -141,7 +167,9 @@
                 ],
 
             });
-
+        $('.show').on("submit", function (){
+            console.log('hello');
+        })
 
         $('#createUser').on("submit", function (e) {
             e.preventDefault();
@@ -158,10 +186,7 @@
                 },
             });
         })
-
     });
-    </script>
-    <script>
 
             $('.modelClose').on('click', function(){
             $('#EditProductModal').hide();
@@ -178,14 +203,13 @@
                 url: "users/edit/"+id,
                 method: 'GET',
                 success: function(result) {
-                        console.log(result);
                         $('#EditProductModalBody').html(result.html);
                         $('#EditProductModal').show();
                     }
                 });
+
         });
-    </script>
-    <script>
+
         $('a.printPage').click(function(){
             window.print();
             return false;

@@ -45,7 +45,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('user_data', [UserController::class,'index'])->name('user_data');
     Route::post('store_data', [UserController::class,'store'])->name('store_data');
     Route::get('users/edit/{id}',[UserController::class,'edit']);
-    Route::get('users/{id}', [UserController::class,'show'])->name('users/{id}');
+    Route::get('users/show/{id}', [UserController::class,'show']);
 
     // Route::get('show', [UserController::class,'show']);
 
