@@ -20,6 +20,7 @@
 
   </head>
   <body>
+    @role('admin')
     <a class="btn btn-light" href="{{ url('export-excel') }}">Export Excel</a>
     <a class="btn btn-light" href="{{ url('export-csv') }}">Export CSV</a>
     <a class="btn btn-light printPage" href="#">Print</a>
@@ -149,7 +150,9 @@
         </tbody>
     </table>
   </div>
-
+  @else
+  You are not admin
+@endrole
 
     <script type="text/javascript">
         $(document).ready(function() {

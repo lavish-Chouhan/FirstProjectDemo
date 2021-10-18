@@ -88,7 +88,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
             <li class="nav-item">
-                <a href="{{ route('admin.index') }}" class="nav-link">
+                <a href="{{ url('dashboard') }}" class="nav-link">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
                     <p>
                     Dashboard
@@ -97,6 +97,7 @@
                 </a>
 
             </li>
+@role('admin')
             <li class="nav-item">
                 <a href="{{ url('users') }}" class="nav-link">
 
@@ -109,6 +110,14 @@
                 <a href="{{ route('role.index') }}" class="nav-link">
 
                     Role
+                </a>
+
+            </li>
+          @endrole
+            <li class="nav-item">
+                <a href="{{ url('invoice') }}" class="nav-link">
+
+                    Invoice
                 </a>
 
             </li>
@@ -131,7 +140,7 @@
   <!-- /.content-wrapper -->
 
   <footer class="main-footer">
-  <a href='#top'>Go To The Top</a> 
+  <a href='#top'>Go To The Top</a>
     <div class="float-right d-none d-sm-block">
       <b>Version</b> 3.2.0-rc
     </div>

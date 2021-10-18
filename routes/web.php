@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\InvoiceController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\StripeController;
+use App\Http\Controllers\StripePaymentController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -29,7 +32,7 @@ Auth::routes();
 
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/admin', [
+    Route::get('/dashboard', [
         'as' => 'admin.index',
         'uses' => function () {
 
@@ -47,7 +50,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('users/edit/{id}',[UserController::class,'edit']);
     Route::get('users/show/{id}', [UserController::class,'show']);
 
-    // Route::get('show', [UserController::class,'show']);
+    Route::resource('invoice', InvoiceController::class);
 
     Route::get('users/{lang}', function ($lang) {
         App::setlocale($lang);
@@ -60,6 +63,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('export-excel', [UserController::class,'exportIntoExcel']);
     Route::get('export-csv', [UserController::class,'exportIntoCSV']);
 
+    Route::get('stripe', [StripePaymentController::class, 'stripe']);
+    Route::post('stripe', [StripePaymentController::class, 'stripePost'])->name('stripe.post');
 
 });
 
