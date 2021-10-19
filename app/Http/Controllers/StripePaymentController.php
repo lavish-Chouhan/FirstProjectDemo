@@ -30,7 +30,7 @@ class StripePaymentController extends Controller
                 "amount" => 100 * 100,
                 "currency" => "inr",
                 "source" => $request->stripeToken,
-                "description" => "Test payment from itsolutionstuff.com."
+                "description" => "Test payment."
         ]);
 
         Session::flash('success', 'Payment successful!');
