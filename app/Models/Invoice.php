@@ -12,6 +12,10 @@ class Invoice extends Model
     protected $fillable = [
         'name',
         'total',
-
     ];
+
+    public function payment()
+    {
+        return $this->hasOne(Payment::class);
+    }
 }

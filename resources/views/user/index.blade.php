@@ -1,10 +1,10 @@
 @extends('layouts.master')
 
 @section('content')
-
+@role('admin')
    <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
-    Create New User
+    Create New Recipt
 </button>
 
 <!-- Modal -->
@@ -37,7 +37,7 @@
   </form>
 </div>
 </div>
-
+@endrole
 <table class="table">
     <tr>
         <th>ID</th>
@@ -58,8 +58,11 @@
                  </form>
 @endrole
             </td>
-            <td><a href="{{ route('invoice.show',$invoice->id) }}" class="btn btn-primary">Show</a></td>
-            <td><a href="{{ url('stripe') }}" class="btn btn-success">Pay Now</a></td>
+            <td><a href="{{ route('invoice.show',$invoice->id) }}" class="btn btn-primary">PAY</a></td>
+            {{-- <td><a href="{{ url('stripe/'.$invoice->id) }}" class="btn btn-success">Pay Now</a></td> --}}
+            {{-- do byryct or optimize --}}
+            {{-- <td><a href="{{ url('paypal') }}" class="btn btn-light">Pay Now with PayPal</a></td> --}}
+
         </tr>
         @empty
         <tr>
@@ -67,4 +70,7 @@
         </tr>
         @endforelse
 </table>
+
+
 @endsection
+

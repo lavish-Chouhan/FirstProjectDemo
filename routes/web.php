@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\PaypalController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -63,8 +64,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('export-excel', [UserController::class,'exportIntoExcel']);
     Route::get('export-csv', [UserController::class,'exportIntoCSV']);
 
-    Route::get('stripe', [StripePaymentController::class, 'stripe']);
+    Route::get('stripe/{id}', [StripePaymentController::class, 'stripe']);
     Route::post('stripe', [StripePaymentController::class, 'stripePost'])->name('stripe.post');
+
+    Route::post('paypal',[PaypalController::class,'paywithpaypal']);
+    Route::get('status',[PaypalController::class,'getPaymentStatus'])->name('status');
+    Route::get('test',[StripePaymentController::class,'test']);
 
 });
 

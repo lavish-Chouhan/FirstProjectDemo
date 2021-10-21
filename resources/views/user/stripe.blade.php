@@ -26,7 +26,7 @@
 
 <div class="container">
 
-    <h1>Stripe Payment Gateway Integration Example <br/> </h1>
+    <h1>Stripe Payment Gateway payment of {{ $id }}<br/> </h1>
 
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
@@ -57,6 +57,8 @@
                             data-stripe-publishable-key="{{ env('STRIPE_KEY') }}"
                             id="payment-form">
                         @csrf
+
+                        <input type="hidden" name="id" value="{{$id}}" />
 
                         <div class='form-row row'>
                             <div class='col-xs-12 form-group required'>
