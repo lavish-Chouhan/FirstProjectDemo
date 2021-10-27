@@ -2,12 +2,14 @@
 
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\PaypalController;
+use App\Http\Controllers\PlanController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\StripePaymentController;
+use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -52,6 +54,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('users/show/{id}', [UserController::class,'show']);
 
     Route::resource('invoice', InvoiceController::class);
+    Route::get('invoice_table', [InvoiceController::class, 'index']);
+    Route::get('invoice/create', [InvoiceController::class, 'create']);
+    Route::post('invoice/create', [InvoiceController::class, 'store']);
+
 
     Route::get('users/{lang}', function ($lang) {
         App::setlocale($lang);
@@ -69,7 +75,24 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('paypal',[PaypalController::class,'paywithpaypal']);
     Route::get('status',[PaypalController::class,'getPaymentStatus'])->name('status');
-    Route::get('test',[StripePaymentController::class,'test']);
+    Route::get('stripe/refund/{id}',[StripePaymentController::class,'refund']);
+
+    // subscribe
+    Route::get('subscribe', function () {
+        return view('user.subscribe');
+    });
+
+    Route::get('/home', [UserController::class,'index'])->name('home');
+    Route::get('/plans', [PlanController::class,'index'])->name('plans.index');
+    Route::get('/plan/{plan}', [PlanController::class,'show'])->name('plans.show');
+    Route::post('/subscription', [SubscriptionController::class,'create'])->name('subscription.create');
+
+    //Routes for create Plan
+    Route::get('create/plan', [SubscriptionController::class,'createPlan'])->name('create.plan');
+    Route::post('store/plan', [SubscriptionController::class,'storePlan'])->name('store.plan');
 
 });
+
+
+
 

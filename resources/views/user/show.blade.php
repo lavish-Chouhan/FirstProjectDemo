@@ -12,13 +12,17 @@
             <th>Action</th>
         </tr>
         <tr>
-            <td>{{ $Invoice->id }}</td>
-            <td>{{ $Invoice->name }}</td>
-            <td>{{ $Invoice->total }}</td>
-            {{-- <td>{{ $->status }}</td> --}}
-            <td><a href="{{ url('stripe/'.$Invoice->id) }}" class="btn btn-success">Pay Now</a></td>
+            <td>{{ $invoice->id }}</td>
+            <td>{{ $invoice->name }}</td>
+            <td>{{ $invoice->total }}</td>
+            {{-- <td class="text-success">{{ $invoice->payment->status}}</td> --}}
+            {{-- <td><a href="{{ url('stripe/'.$invoice->id) }}" class="btn btn-success">Pay Now</a></td> --}}
             <td><div id="paypal-button-container"></div></td>
-
+            @role('admin')
+            @if($invoice->payment)
+            <td><a class="btn btn-info" href="{{ url('stripe/refund/'.$invoice->id) }}">Refund</a></td>
+            @endif
+            @endrole
         </tr>
 
     </table>
@@ -35,19 +39,17 @@ createOrder: function(data, actions) {
 return actions.order.create({
   purchase_units: [{
     amount: {
-      value: '{{$Invoice->total}}'
+      value: '{{$invoice->total}}'
     }
   }]
 });
 },
 onApprove: function(data, actions) {
-// This function captures the funds from the transaction.
 return actions.order.capture().then(function(details) {
-  // This function shows a transaction success message to your buyer.
   alert('Transaction completed by ' + details.payer.name.given_name);
 });
 }
 }).render('#paypal-button-container');
-//This function displays Smart Payment Buttons on your web page.
+//This displays Smart Payment Buttons on web page.
 </script>
 @endsection

@@ -27,6 +27,7 @@
 <div class="container">
 
     <h1>Stripe Payment Gateway payment of {{ $id }}<br/> </h1>
+    <a class="text-primary" href="{{ url('invoice')}}">Back to home</a>
 
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
@@ -59,7 +60,6 @@
                         @csrf
 
                         <input type="hidden" name="id" value="{{$id}}" />
-
                         <div class='form-row row'>
                             <div class='col-xs-12 form-group required'>
                                 <label class='control-label'>Name on Card</label> <input
@@ -121,7 +121,7 @@
 <script type="text/javascript">
 $(function() {
 
-    var $form         = $(".require-validation");
+    var $form = $(".require-validation");
 
     $('form.require-validation').bind('submit', function(e) {
         var $form         = $(".require-validation"),

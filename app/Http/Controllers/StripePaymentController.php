@@ -17,13 +17,9 @@ class StripePaymentController extends Controller
      */
     public function stripe($id)
     {
-    //     $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
-    //     $stripe->refunds->create([
-    //     'charge' => 'ch_3JmuToSHRkMY5clT0McrgMNb',
-    //   ]);.
 
-    return view('user.stripe',['id' => $id]);
-}
+        return view('user.stripe',['id' => $id]);
+    }
 
 /**
  * success response method.
@@ -46,7 +42,7 @@ class StripePaymentController extends Controller
         $payment->transaction_id = $data->id;
         $payment->amount = $data->amount;
         $payment->status = $data->status;
-        $payment->invoices_id = $request->id;
+        $payment->invoice_id = $request->id;
 
         $payment->save();
 
@@ -57,8 +53,20 @@ class StripePaymentController extends Controller
         return back();
     }
 
+    public function refund($id){
+        $ref = Payment::Where('invoice_id',$id)->first();
 
-    public function test(){
-        $invoice = Payment::find(3)->payment;
+        $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+        $response= $stripe->refunds->create([
+            'charge' => $ref->transaction_id,
+        ]);
+
+        if ($response->status){
+            $ref->status = 'refunded';
+            $ref->save();
+        }
+        return redirect()->route('invoice_table')->withMessage('Updated');
+
     }
+
 }

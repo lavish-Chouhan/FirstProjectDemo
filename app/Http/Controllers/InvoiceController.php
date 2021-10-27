@@ -27,7 +27,7 @@ class InvoiceController extends Controller
      */
     public function create()
     {
-        //
+        return view('user.create_invoice');
     }
 
     /**
@@ -38,7 +38,12 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $invoices = Invoice::create([
+            'name' => $request->input('name'),
+            'total' => $request->input('total')
+        ]);
+
+        return (['msg' => 'success']);
     }
 
     /**
@@ -50,7 +55,7 @@ class InvoiceController extends Controller
     public function show($id)
     {
         $invoices = Invoice::find($id);
-        return view('user.show')->with('Invoice',$invoices);
+        return view('user.show')->with('invoice',$invoices);
     }
 
     /**
