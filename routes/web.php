@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EmailConfigurationController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\PaypalController;
 use App\Http\Controllers\PlanController;
@@ -11,17 +12,6 @@ use App\Http\Controllers\StripeController;
 use App\Http\Controllers\StripePaymentController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\UserController;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', function () {
     return view('welcome');
@@ -91,8 +81,16 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('create/plan', [SubscriptionController::class,'createPlan'])->name('create.plan');
     Route::post('store/plan', [SubscriptionController::class,'storePlan'])->name('store.plan');
 
+    Route::get('dash', function () {
+        return view('configuration.dashboard');
+    });
+    Route::post("configuration", [EmailConfigurationController::class, "createConfiguration"])
+            ->name("configuration.store");
+
+    Route::get("email", [EmailConfigurationController::class, "composeEmail"])->name("email");
+    Route::post('email', [EmailConfigurationController::class, 'sendEmail']);
 });
 
-
+Route::stripeWebhooks('stripe-webhook');
 
 

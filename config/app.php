@@ -181,6 +181,7 @@ return [
         \Yajra\DataTables\DataTablesServiceProvider::class,
         \Yajra\DataTables\ButtonsServiceProvider::class,
         \Srmklive\PayPal\Providers\PayPalServiceProvider::class,
+        App\Providers\MailConfigProvider::class,
 
 
 

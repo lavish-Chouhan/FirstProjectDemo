@@ -3,17 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 </title>
-
-  <!-- Google Font: Source Sans Pro -->
+  <title>Admin Pannel </title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
-  <!-- overlayScrollbars -->
   <link rel="stylesheet" href="../../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-  <!-- Theme style -->
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
-
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <!-- Site wrapper -->
@@ -37,13 +31,13 @@
     <ul class="navbar-nav ml-auto">
         <li>
             <a class="dropdown-item" href="{{ route('logout') }}"
-            onclick="event.preventDefault();
-                               document.getElementById('logout-form').submit();">
-                                  {{ __('Logout') }}
-              </a>
-              <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                  @csrf
-              </form>
+                onclick="event.preventDefault();
+                document.getElementById('logout-form').submit();">
+                {{ __('Logout') }}
+            </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+            </form>
           </li>
       <!-- Navbar Search -->
 
@@ -54,17 +48,14 @@
 
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="../../index3.html" class="brand-link">
-
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+    <a href="#" class="brand-link">
+      <span class="brand-text font-weight-light">AdminPannel By Lavish</span>
     </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
-      <!-- Sidebar user (optional) -->
+      <!-- Sidebar user -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-
         <div class="info">
           <a href="#" class="d-block">Lavish Chouhan</a>
         </div>
@@ -91,7 +82,7 @@
                 <a href="{{ url('dashboard') }}" class="nav-link">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
                     <p>
-                    Dashboard
+                        Dashboard
                     <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
@@ -100,15 +91,12 @@
 @role('admin')
             <li class="nav-item">
                 <a href="{{ url('users') }}" class="nav-link">
-
                     User Table
                 </a>
-
             </li>
 
             <li class="nav-item">
                 <a href="{{ route('role.index') }}" class="nav-link">
-
                     Role
                 </a>
 
@@ -116,18 +104,21 @@
           @endrole
             <li class="nav-item">
                 <a href="{{ url('invoice') }}" class="nav-link">
-
                     Invoice
                 </a>
-
             </li>
-
             <li class="nav-item">
-                <a href="{{ url('subscribe') }}" class="nav-link">
-
-                    Subcription
+                <a href="{{ url('plans') }}" class="nav-link">
+                    Plans
                 </a>
-
+            </li><li class="nav-item">
+                <a href="{{ url('dash') }}" class="nav-link">
+                    configuration for Email
+                </a>
+            </li>  </li><li class="nav-item">
+                <a href="{{ url('email') }}" class="nav-link">
+                    Send MAIL
+                </a>
             </li>
 
         </li>
@@ -172,13 +163,9 @@
 //   return false;
 //     });
 </script>
-<!-- jQuery -->
 <script src="../../plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
 <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- overlayScrollbars -->
 <script src="../../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-<!-- AdminLTE App -->
 <script src="../../dist/js/adminlte.min.js"></script>
 
 </body>
