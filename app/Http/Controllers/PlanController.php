@@ -12,6 +12,7 @@ class PlanController extends Controller
      *
      * @return void
     */
+
     public function index()
     {
         $plans = Plan::all();

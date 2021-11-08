@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\EmailConfigurationController;
+use App\Http\Controllers\EnvSettingController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\PaypalController;
 use App\Http\Controllers\PlanController;
@@ -85,10 +87,15 @@ Route::group(['middleware' => 'auth'], function () {
         return view('configuration.dashboard');
     });
     Route::post("configuration", [EmailConfigurationController::class, "createConfiguration"])
-            ->name("configuration.store");
+    ->name("configuration.store");
 
     Route::get("email", [EmailConfigurationController::class, "composeEmail"])->name("email");
     Route::post('email', [EmailConfigurationController::class, 'sendEmail']);
+
+    Route::get('emailconfig', [EnvSettingController::class,'emailSet']);
+
+    Route::get('event', [EventController::class,'index']);
+    Route::post('subscribe', [EventController::class,'subscribe']);
 });
 
 Route::stripeWebhooks('stripe-webhook');

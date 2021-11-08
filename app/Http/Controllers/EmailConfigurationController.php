@@ -43,11 +43,13 @@ class EmailConfigurationController extends Controller
         // pass dynamic message to mail class
         Mail::to($toEmail)->send(new DynamicEmail($data));
 
-        if(Mail::failures() != 0) {
+        if(Mail::failures() != 0)
+        {
             return back()->with("success", "E-mail sent successfully!");
         }
 
-        else {
+        else
+        {
             return back()->with("failed", "E-mail not sent!");
         }
     }
