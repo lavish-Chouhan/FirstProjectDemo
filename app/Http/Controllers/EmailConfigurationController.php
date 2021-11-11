@@ -5,11 +5,21 @@ namespace App\Http\Controllers;
 use App\Mail\DynamicEmail;
 use Illuminate\Http\Request;
 use App\Models\EmailConfiguration;
+use App\Notifications\MailSet;
+use App\Traits\envTrait;
+use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class EmailConfigurationController extends Controller
 {
+    use envTrait;
+
+    public function __construct()
+    {
+        $this->setSMTP();
+    }
+
     public function createConfiguration(Request $request) {
 
         $configuration  =   EmailConfiguration::create([
@@ -33,6 +43,10 @@ class EmailConfigurationController extends Controller
         }
     }
 
+    public function composeEmail() {
+        return view("configuration.email");
+    }
+
     public function sendEmail(Request $request) {
 
         $toEmail    =   $request->emailAddress;
@@ -40,21 +54,9 @@ class EmailConfigurationController extends Controller
             "message"    =>   $request->message
         );
 
-        // pass dynamic message to mail class
-        Mail::to($toEmail)->send(new DynamicEmail($data));
+        Notification::route('mail',($toEmail))->notify(new MailSet($data));
 
-        if(Mail::failures() != 0)
-        {
-            return back()->with("success", "E-mail sent successfully!");
-        }
-
-        else
-        {
-            return back()->with("failed", "E-mail not sent!");
-        }
+        return "success";
     }
 
-    public function composeEmail() {
-        return view("configuration.email");
-    }
 }

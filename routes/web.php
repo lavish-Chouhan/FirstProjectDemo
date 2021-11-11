@@ -1,19 +1,25 @@
 <?php
 
-use App\Http\Controllers\EmailConfigurationController;
-use App\Http\Controllers\EnvSettingController;
-use App\Http\Controllers\EventController;
-use App\Http\Controllers\InvoiceController;
-use App\Http\Controllers\PaypalController;
-use App\Http\Controllers\PlanController;
+use App\Events\FormSubmitted;
+use App\Models\User;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Notifications\SendNotification;
+use App\Http\Controllers\PlanController;
 use App\Http\Controllers\RoleController;
-use App\Http\Controllers\StripeController;
-use App\Http\Controllers\StripePaymentController;
-use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\PaypalController;
+use App\Http\Controllers\StripeController;
+use App\Http\Controllers\InvoiceController;
+use Illuminate\Support\Facades\Notification;
+use App\Http\Controllers\EnvSettingController;
+use App\Notifications\WelcomeEmailNotification;
+use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\StripePaymentController;
+use Illuminate\Notifications\Messages\SlackMessage;
+use App\Http\Controllers\EmailConfigurationController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -92,12 +98,27 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get("email", [EmailConfigurationController::class, "composeEmail"])->name("email");
     Route::post('email', [EmailConfigurationController::class, 'sendEmail']);
 
-    Route::get('emailconfig', [EnvSettingController::class,'emailSet']);
+    Route::get("emailconfig", [EnvSettingController::class,'emailSet']);
 
     Route::get('event', [EventController::class,'index']);
     Route::post('subscribe', [EventController::class,'subscribe']);
+
+    Route::get('/counter',function(){
+        return view('counter');
+    });
+
+    Route::get('/sender',function(){
+        return view('sender');
+    });
+    Route::post('/sender',function(){
+        $text = request()->text;
+        event (new FormSubmitted($text));
+    });
+
+
 });
 
 Route::stripeWebhooks('stripe-webhook');
+
 
 

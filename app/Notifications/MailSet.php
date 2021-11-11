@@ -2,24 +2,26 @@
 
 namespace App\Notifications;
 
+use App\Traits\envTrait;
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Messages\SlackMessage;
+use Illuminate\Notifications\Notification;
 
-class WelcomeEmailNotification extends Notification
+class MailSet extends Notification
 {
     use Queueable;
+    use envTrait;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($data)
     {
-        //
+        $this->data = $data;
+        $this->setSMTP();
     }
 
     /**
@@ -30,7 +32,7 @@ class WelcomeEmailNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail','slack'];
+        return ['mail'];
     }
 
     /**
@@ -42,15 +44,9 @@ class WelcomeEmailNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('Welcome.')
+                    ->line('The introduction to the notification.')
                     ->action('Notification Action', url('/'))
                     ->line('Thank you for using our application!');
-    }
-
-    public function toSlack($notifiable)
-    {
-        return (new SlackMessage)
-        ->content('Notification Slack');
     }
 
     /**

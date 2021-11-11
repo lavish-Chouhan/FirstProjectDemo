@@ -10,6 +10,6 @@ class EnvSettingController extends Controller
     use envTrait;
 
     public function __construct(){
-        $this->emailSet();
+        $this->testSMTP();
     }
 }

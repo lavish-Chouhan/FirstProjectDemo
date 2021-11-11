@@ -111,16 +111,32 @@
                 <a href="{{ url('plans') }}" class="nav-link">
                     Plans
                 </a>
-            </li><li class="nav-item">
+            </li>
+            <li class="nav-item">
                 <a href="{{ url('dash') }}" class="nav-link">
                     configuration for Email
                 </a>
-            </li>  </li><li class="nav-item">
+            </li>
+            <li class="nav-item">
                 <a href="{{ url('email') }}" class="nav-link">
                     Send MAIL
                 </a>
             </li>
-
+            <li class="nav-item">
+                <a href="{{ url('event') }}" class="nav-link">
+                    Event Listner demo
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ url('sender') }}" class="nav-link">
+                    Pusher Sender
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ url('counter') }}" target="_blank" class="nav-link">
+                    Pusher Receiver
+                </a>
+            </li>
         </li>
         </ul>
       </nav>

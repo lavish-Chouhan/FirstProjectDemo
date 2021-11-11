@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Notifications\NewUserRegistered;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Trebol\Entrust\Traits\EntrustUserTrait;
@@ -17,6 +18,14 @@ class User extends Authenticatable
     use Notifiable,EntrustUserTrait;
     use Billable;
 
+    public static function boot()
+    {
+        parent::boot();
+
+        self::created(function($model){
+            $model->notify(new NewUserRegistered());
+        });
+    }
     /**
      * The attributes that are mass assignable.
      *
@@ -38,6 +47,12 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    public function routeNotificationFor($driver)
+    {
+        return env('SLACK_NOTIFICATION_WEBHOOK');
+    }
+
 
     /**
      * The attributes that should be cast.
