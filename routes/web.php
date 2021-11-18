@@ -20,6 +20,8 @@ use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\StripePaymentController;
 use Illuminate\Notifications\Messages\SlackMessage;
 use App\Http\Controllers\EmailConfigurationController;
+use App\Http\Controllers\StripeConfigController;
+use App\Http\Controllers\TestController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -115,10 +117,12 @@ Route::group(['middleware' => 'auth'], function () {
         event (new FormSubmitted($text));
     });
 
+    Route::get('stripeinput', [StripeConfigController::class,'input']);
+    Route::post('store',[StripeConfigController::class,'store'])->name("store");
 
 });
 
+Route::get('test',[TestController::class,'test']);
+
+
 Route::stripeWebhooks('stripe-webhook');
-
-
-

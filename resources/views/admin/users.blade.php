@@ -12,31 +12,37 @@
     <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 
-<script src="https://code.jquery.com/jquery-3.5.0.js" integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.0.js" integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 
   </head>
   <body>
-    @role('admin')
+<div class="container mt-2">
+    <div class="row">
     <a class="btn btn-light" href="{{ url('export-excel') }}">Export Excel</a>
     <a class="btn btn-light" href="{{ url('export-csv') }}">Export CSV</a>
     <a class="btn btn-light printPage" href="#">Print</a>
+        <div class="col">
         <form method="POST" enctype="multipart/form-data" action="{{ route('user.import') }}" >
             @csrf
             <input type="file" name="file">
             <input id="submitbtn" class="btn btn-success btn-sm" name="Submit" type="submit" value="Import" />
             {{-- <button class="btn btn-success btn-sm" type="submit">Import</button> --}}
         </form>
-        <a href="{{ url('users/hi') }}" value="hi" >Change Language to Hindi</a>
+        </div>
+        <div class="col">
+        <a href="{{ url('users/hi') }}" class="btn btn-light" value="hi" >Change Language to Hindi</a>
+        </div>
+    </div>
   <div class="container mt-5">
-
+</div>
     <h3 class="text-center font-weight-bold">{{ __('profile.welcome') }}</h3>
 
    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
+    <button type="button" class="mb-2 btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
         Create New User
     </button>
 
@@ -55,11 +61,11 @@
             @csrf
         <div class="modal-body">
 
-            <lable>Name</lable>
+            <label>Name</label>
             <input type="text" id="name" name="name" class="form-control">
-            <lable>Email</lable>
+            <label>Email</label>
             <input type="text" id="email" name="email" class="form-control">
-            <lable>Password</lable>
+            <label>Password</label>
             <input type="text" id="password" name="password" class="form-control">
 
         </div>
@@ -121,7 +127,7 @@
         </div>
         <span id="form_result"></span>
         <div class="modal-body">
-            <lable>user</lable>
+            <label>user</label>
         </div>
 
         <div class="modal-footer">
@@ -142,17 +148,12 @@
             <th> Email </th>
             <th> role </th>
             <th> Action </th>
-
         </thead>
-
-
         <tbody>
         </tbody>
     </table>
   </div>
-  @else
-  You are not admin
-@endrole
+
 
     <script type="text/javascript">
         $(document).ready(function() {

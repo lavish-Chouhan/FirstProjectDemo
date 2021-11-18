@@ -101,7 +101,7 @@
                 </a>
 
             </li>
-          @endrole
+@endrole
             <li class="nav-item">
                 <a href="{{ url('invoice') }}" class="nav-link">
                     Invoice
@@ -137,6 +137,16 @@
                     Pusher Receiver
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ url('stripeinput') }}" class="nav-link">
+                    Stripe Config Insert
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ url('test') }}" class="nav-link">
+                    Component Test
+                </a>
+            </li>
         </li>
         </ul>
       </nav>
@@ -154,7 +164,7 @@
   </div>
   <!-- /.content-wrapper -->
 
-  <footer class="main-footer">
+  <footer class="main-footer fixed-bottom">
   <a href='#top'>Go To The Top</a>
     <div class="float-right d-none d-sm-block">
       <b>Version</b> 3.2.0-rc

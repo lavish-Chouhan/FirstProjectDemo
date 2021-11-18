@@ -5,6 +5,7 @@ use App\Models\User;
 use App\Models\Role;
 use App\Exports\UserExport;
 use App\Imports\userImport;
+use App\Models\test;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
@@ -34,8 +35,13 @@ class UserController extends Controller
                            <button type="button" class="btn btn-primary btn-sm" id="getEditProductData" data-toggle="modal" data-target="#EditProductModal" data-id="'.$data->id.'">Edit</button>';
                         })
                         ->addColumn('role', function($data){
-                            return $data->roles[0]['name'];
+                            // return $data->roles[0]['name'];
+                            $name = '';
 
+                            foreach ($data->roles as $key => $value) {
+                                $name = $value->name;
+                            }
+                            return $name;
                         })
                         ->rawColumns(['action','role'])
 
@@ -162,7 +168,5 @@ class UserController extends Controller
     {
         return Excel::download(new UserExport, 'userlist.csv');
     }
-
-
 }
 

@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Models\Payment;
 use App\Models\Invoice;
+use App\Models\StripeConfig;
 
 class StripePaymentController extends Controller
 {
+    public $testkey,$testsecret;
     /**
      * success response method.
      *
@@ -17,8 +19,8 @@ class StripePaymentController extends Controller
      */
     public function stripe($id)
     {
-
-        return view('user.stripe',['id' => $id]);
+        $testkey = StripeConfig::first()->stripe_key;
+        return view('user.stripe',['id' => $id, 'testkey' => $testkey]);
     }
 
 /**
@@ -29,8 +31,9 @@ class StripePaymentController extends Controller
     public function stripePost(Request $request)
     {
         $amt = Invoice::Where('id',$request->id)->get(['total']);
+        $testsecret = StripeConfig::first()->stripe_secret;
 
-        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        Stripe\Stripe::setApiKey($testsecret);
         $data = Stripe\Charge::create ([
             "amount" => $amt[0]['total']*100,
             "currency" => "inr",
@@ -55,8 +58,9 @@ class StripePaymentController extends Controller
 
     public function refund($id){
         $ref = Payment::Where('invoice_id',$id)->first();
+        $testkey = StripeConfig::first()->stripe_secret;
 
-        $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+        $stripe = new \Stripe\StripeClient($testkey);
         $response= $stripe->refunds->create([
             'charge' => $ref->transaction_id,
         ]);

@@ -8,10 +8,14 @@
 </div>
 @endrole
 <table class="table">
+    <thead class="thead-light">
     <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>total</th>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">total</th>
+        <th scope="col">Action</th>
+        <th scope="col">Action</th>
+        <th scope="col">Action</th>
     </tr>
     @forelse($invoices as $invoice)
         <tr>

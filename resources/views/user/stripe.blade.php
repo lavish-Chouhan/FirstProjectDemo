@@ -55,7 +55,7 @@
                             method="post"
                             class="require-validation"
                             data-cc-on-file="false"
-                            data-stripe-publishable-key="{{ env('STRIPE_KEY') }}"
+                            data-stripe-publishable-key="{{ $testkey }}"
                             id="payment-form">
                         @csrf
 
